@@ -1,15 +1,13 @@
 <template>
   <section>
-    <header>
-      <h2>Movie browser</h2>
-      <p>
-        For me, the cinema is not slice of life, but a piece of cake.<sub>
-          ~ Alfred Hitchcock</sub
-        >
-      </p>
-    </header>
+    <page-header></page-header>
     <search-movie @movie-name="setMovieName"></search-movie>
-    <ul id="grid">
+    <movie-page
+      :total_pages="movies.total_pages"
+      @number-page="setPage"
+      v-if="movieName !== ''"
+    ></movie-page>
+    <ul id="filmlist">
       <show-movie
         v-for="movie in movies.results"
         :key="movie.id"
@@ -19,20 +17,23 @@
         :vote_count="movie.vote_count"
         :poster_path="movie.poster_path"
         :overview="movie.overview"
-        :total_pages="movies.total_pages"
-      ><show-details></show-details></show-movie>
+      ></show-movie>
     </ul>
+    <movie-page
+      :total_pages="movies.total_pages"
+      @number-page="setPage"
+      v-if="movieName !== ''"
+    ></movie-page>
   </section>
 </template>
 
 <script>
-import ShowDetails from './components/ShowDetails.vue';
 export default {
-  components: { ShowDetails },
   data() {
     return {
       movieName: "",
       movies: [],
+      pageNumber: 1,
     };
   },
   methods: {
@@ -47,7 +48,8 @@ export default {
         "https://api.themoviedb.org/4/search/movie?" +
         api_key +
         language +
-        '&page=${pageNumber}' +
+        "&page=" +
+        this.pageNumber +
         "&query=" +
         this.movieName;
       fetch(url)
@@ -56,7 +58,10 @@ export default {
           this.movies = data;
         });
     },
-  
+    setPage(getpage) {
+      this.pageNumber = getpage;
+      this.searchMovies();
+    },
   },
 };
 </script>
@@ -71,21 +76,6 @@ export default {
 html {
   background-color: black;
   background-position: bottom;
-}
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 16px;
-  background-color: rgb(124, 23, 23);
-  color: white;
-  font-size: large;
-}
-header p {
-  font-size: medium;
-}
-header p sub {
-  font-size: small;
 }
 #app search-movie {
   text-align: center;
@@ -109,8 +99,8 @@ header p sub {
   border: 1px solid white;
 }
 #app ul {
-  display:flex;
-  flex-wrap: wrap; 
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }

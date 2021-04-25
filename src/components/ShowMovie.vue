@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div id="movie-view">
+    <div id="movieview">
       <ul>
         <li><img :src="'https://image.tmdb.org/t/p/w500' + poster_path" /></li>
         <li>
@@ -16,8 +16,8 @@
       <button @click="toggleDetails">
         {{ detailsAreVisible ? "Ukryj" : "Pokaż" }} szczegóły
       </button>
-      <ul v-if="detailsAreVisible">
-        
+
+      <ul v-if="detailsAreVisible"> 
         <li>
           <strong>Gatunki:</strong>
           <p v-for="genre in movie.genres" :key="genre.id" id="genres">{{ genre.name }}. </p>
@@ -34,6 +34,7 @@
           <p v-for="country in movie.production_countries" :key="country.id" id="country">{{country.name}}. </p>
           </li>
       </ul>
+
     </div>
   </section>
 </template>
@@ -94,7 +95,7 @@ export default {
 </script>
 
 <style>
-#movie-view {
+#movieview {
   color: black;
   background-color: rgb(199, 169, 2);
   padding: 1rem;
@@ -107,14 +108,14 @@ img {
   width: 100%;
   height: auto;
 }
-#movie-view li strong {
+#movieview li strong {
   width: 12rem;
   display: inline-block;
 }
 ul {
   list-style: none;
 }
-#movie-view button {
+#movieview button {
   vertical-align: top;
 }
 #genres, #country{
