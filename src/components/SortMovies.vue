@@ -1,29 +1,40 @@
 <template>
   <div class="wrapper">
-    <select v-model="currentOrder">
-      <option value="nameaz" disabled>Sortowanie filmów</option>
-      <option value="nameaz">Sortuj od a do z</option>
-      <option value="nameza">Sortuj od z do a</option>
-      <option value="value">Sortuj według największej popularności</option>
-      <option value="value">Sortuj według najmniejszej popularności</option>
+    <select v-model="selected">
+      <option value=''>Kolejność przypadkowa</option>
+      <option v-for="option in options" :value="option.value" :key="option.value">
+        {{ option.text }}
+      </option>
     </select>
   </div>
 </template>
 
 <script>
 export default {
+  emits: ['sort-data'],
   data() {
     return {
+      selected: '',
+      options: [
+        { text: "Sortuj od a do z", value: "A" },
+        { text: "Sortuj od z do a", value: "Z" },
+        { text: "Sortuj według największej popularności", value: "P" },
+        { text: "Sortuj według najmniejszej popularności", value: "N" },
+      ],
     };
   },
-  methods: {
-   
+  watch: {
+    selected(){
+      this.$emit('sort-data',this.selected);
+    }
   },
+  methods: {},
 };
 </script>
 
 <style>
 #app .wrapper {
+  color: white;
   justify-content: center;
   align-items: center;
   text-align: center;

@@ -36,6 +36,7 @@
       </ul>
 
     </div>
+    
   </section>
 </template>
 
@@ -122,6 +123,6 @@ ul {
   display:inline
 }
 #details {
-  
+
 }
 </style>
