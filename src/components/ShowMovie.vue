@@ -17,7 +17,7 @@
         {{ detailsAreVisible ? "Ukryj" : "Pokaż" }} szczegóły
       </button>
 
-      <ul v-if="detailsAreVisible"> 
+      <ul v-if="detailsAreVisible" id="details"> 
         <li>
           <strong>Gatunki:</strong>
           <p v-for="genre in movie.genres" :key="genre.id" id="genres">{{ genre.name }}. </p>
@@ -120,5 +120,8 @@ ul {
 }
 #genres, #country{
   display:inline
+}
+#details {
+  
 }
 </style>

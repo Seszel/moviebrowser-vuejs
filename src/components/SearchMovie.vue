@@ -48,7 +48,7 @@ export default {
 }
 #app form input {
   background-color: white;
-  width: 80%;
+  width: 100%;
   height: 30px;
   font-size: large;
   color: rgb(124, 23, 23);

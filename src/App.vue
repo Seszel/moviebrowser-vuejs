@@ -2,6 +2,7 @@
   <section>
     <page-header></page-header>
     <search-movie @movie-name="setMovieName"></search-movie>
+    <sort-movies v-if="movieName !== ''"></sort-movies>
     <movie-page
       :total_pages="movies.total_pages"
       @number-page="setPage"

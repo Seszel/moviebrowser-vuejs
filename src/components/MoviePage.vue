@@ -67,13 +67,6 @@ export default {
 #app .pagination button {
   color: white;
   background-color: rgb(59, 56, 56);
-  /* color: black;
-
-  background-color: #ccc;
-  padding: 4px 8px;
-  text-decoration: none;
-  transition: background-color .3s;
-  border: 1px solid #ddd; */
 }
 #app .pagination button:hover{
   background-color: rgb(124, 23, 23);
