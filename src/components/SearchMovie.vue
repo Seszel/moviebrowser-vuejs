@@ -1,0 +1,61 @@
+<template>
+  <section>
+    <form @submit.prevent="sendMovieName">
+      <div>
+        <label>What are you looking for?</label>
+      </div>
+      <div>
+        <input type="text" placeholder=" Star Wars" v-model="enteredName"/>
+        <button>Show movies</button>
+      </div>
+    </form>
+  </section>
+</template>
+
+<script>
+export default {
+  emits: ['movie-name'],
+  data(){
+    return {
+      enteredName: '',
+    }
+  },
+  methods:{
+    sendMovieName() {
+      this.$emit('movie-name', this.enteredName);
+    },
+  }
+}
+</script>
+
+<style>
+#app form {
+  border: 1px solid black;
+  margin: 0.5rem auto;
+  padding: 0.5rem;
+  max-width: 30rem;
+  text-align: center;
+}
+#app form div {
+  margin: 0.5rem;
+}
+#app label {
+  color: white;
+  font-weight: bold;
+  margin-right: 1rem;
+  width: 20rem;
+  display: inline-block;
+  font-size: large;
+}
+#app form input {
+  background-color: white;
+  width: 80%;
+  height: 30px;
+  font-size: large;
+  color: rgb(124, 23, 23);
+  outline: none;
+}
+input[type=text]:focus {
+  border: 3px solid rgb(199, 169, 2);
+}
+</style>
