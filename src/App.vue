@@ -9,6 +9,17 @@
       </p>
     </header>
     <search-movie @movie-name="setMovieName"></search-movie>
+    <ul id="grid">
+      <show-movie
+        v-for="movie in movies.results"
+        :key="movie.id"
+        :id="movie.id"
+        :title="movie.title"
+        :popularity="movie.popularity"
+        :vote_count="movie.vote_count"
+        :poster_path="movie.poster_path"
+      ></show-movie>
+    </ul>
   </section>
 </template>
 
@@ -17,11 +28,28 @@ export default {
   data() {
     return {
       movieName: "",
+      movies: [],
     };
   },
   methods: {
     setMovieName(getname) {
       this.movieName = getname;
+      this.searchMovies();
+    },
+    searchMovies() {
+      const api_key = "api_key=41bd29c17951314ef43a94fc57c7c88d";
+      const language = "&language=en-US&language=pl-PL";
+      var url =
+        "https://api.themoviedb.org/4/search/movie?" +
+        api_key +
+        language +
+        "&query=" +
+        this.movieName;
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          this.movies = data;
+        });
     },
   },
 };
@@ -73,5 +101,11 @@ header p sub {
   background-color: rgb(124, 23, 23);
   color: white;
   border: 1px solid white;
+}
+#app ul {
+  display:flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+  align-items: center;
 }
 </style>

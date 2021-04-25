@@ -5,7 +5,7 @@
         <label>What are you looking for?</label>
       </div>
       <div>
-        <input type="text" placeholder=" Star Wars" v-model="enteredName"/>
+        <input type="text" placeholder=" Star Wars" v-model="enteredName" />
         <button>Show movies</button>
       </div>
     </form>
@@ -14,18 +14,18 @@
 
 <script>
 export default {
-  emits: ['movie-name'],
-  data(){
+  emits: ["movie-name"],
+  data() {
     return {
-      enteredName: '',
-    }
+      enteredName: "",
+    };
   },
-  methods:{
+  methods: {
     sendMovieName() {
-      this.$emit('movie-name', this.enteredName);
+      this.$emit("movie-name", this.enteredName);
     },
-  }
-}
+  },
+};
 </script>
 
 <style>
@@ -55,7 +55,7 @@ export default {
   color: rgb(124, 23, 23);
   outline: none;
 }
-input[type=text]:focus {
+input[type="text"]:focus {
   border: 3px solid rgb(199, 169, 2);
 }
 </style>
