@@ -23,7 +23,7 @@
           <p v-for="genre in movie.genres" :key="genre.id" id="genres">{{ genre.name }}. </p>
         </li>
         <li>
-          <a :href="'https://www.themoviedb.org/movie/'+movie.id">Link do IMDB:</a>
+          <a :href="'https://www.themoviedb.org/movie/'+movie.id">Link do IMDB</a>
         </li>
         <li>
           <strong>Opis:</strong>

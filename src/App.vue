@@ -5,6 +5,7 @@
     <movie-page
       :total_pages="movies.total_pages"
       @number-page="setPage"
+      :current_page="pageNumber"
       v-if="movieName !== ''"
     ></movie-page>
     <ul id="filmlist">
@@ -22,6 +23,7 @@
     <movie-page
       :total_pages="movies.total_pages"
       @number-page="setPage"
+      :current_page="pageNumber"
       v-if="movieName !== ''"
     ></movie-page>
   </section>

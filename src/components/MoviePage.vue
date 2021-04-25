@@ -1,7 +1,7 @@
 <template>
   <section>
     <button type="paggination" @click="previousPage">Previous</button>
-    <strong>{{page}}</strong>
+    <strong>{{current_page}}</strong>
     <button type="paggination" @click="nextPage">Next</button>
     <strong>{{total_pages}}</strong>
   </section>
@@ -14,6 +14,10 @@ export default {
       type: Number,
       required: true,
     },
+    current_page: {
+      type: Number,
+      required: true,
+    }
   },
   emits: ["number-page"],
   data() {
