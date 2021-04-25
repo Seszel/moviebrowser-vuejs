@@ -18,13 +18,17 @@
         :popularity="movie.popularity"
         :vote_count="movie.vote_count"
         :poster_path="movie.poster_path"
-      ></show-movie>
+        :overview="movie.overview"
+        :total_pages="movies.total_pages"
+      ><show-details></show-details></show-movie>
     </ul>
   </section>
 </template>
 
 <script>
+import ShowDetails from './components/ShowDetails.vue';
 export default {
+  components: { ShowDetails },
   data() {
     return {
       movieName: "",
@@ -43,6 +47,7 @@ export default {
         "https://api.themoviedb.org/4/search/movie?" +
         api_key +
         language +
+        '&page=${pageNumber}' +
         "&query=" +
         this.movieName;
       fetch(url)
@@ -51,6 +56,7 @@ export default {
           this.movies = data;
         });
     },
+  
   },
 };
 </script>

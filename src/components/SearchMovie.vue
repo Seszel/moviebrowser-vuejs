@@ -2,11 +2,11 @@
   <section>
     <form @submit.prevent="sendMovieName">
       <div>
-        <label>What are you looking for?</label>
+        <label>Czego szukasz?</label>
       </div>
       <div>
         <input type="text" placeholder=" Star Wars" v-model="enteredName" />
-        <button>Show movies</button>
+        <button>Pokaż filmy</button>
       </div>
     </form>
   </section>
@@ -30,7 +30,6 @@ export default {
 
 <style>
 #app form {
-  border: 1px solid black;
   margin: 0.5rem auto;
   padding: 0.5rem;
   max-width: 30rem;
