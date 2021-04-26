@@ -17,26 +17,34 @@
         {{ detailsAreVisible ? "Ukryj" : "Pokaż" }} szczegóły
       </button>
 
-      <ul v-if="detailsAreVisible" id="details"> 
+      <ul v-if="detailsAreVisible" id="details">
         <li>
           <strong>Gatunki:</strong>
-          <p v-for="genre in movie.genres" :key="genre.id" id="genres">{{ genre.name }}. </p>
+          <p v-for="genre in movie.genres" :key="genre.id" id="genres">
+            {{ genre.name }}.
+          </p>
         </li>
         <li>
-          <a :href="'https://www.themoviedb.org/movie/'+movie.id">Link do IMDB</a>
+          <a :href="'https://www.themoviedb.org/movie/' + movie.id"
+            >Link do IMDB</a
+          >
         </li>
         <li>
           <strong>Opis:</strong>
-            <p>{{movie.overview}}</p>
+          <p>{{ movie.overview }}</p>
         </li>
         <li>
           <strong>Kraj produkcji:</strong>
-          <p v-for="country in movie.production_countries" :key="country.id" id="country">{{country.name}}. </p>
-          </li>
+          <p
+            v-for="country in movie.production_countries"
+            :key="country.id"
+            id="country"
+          >
+            {{ country.name }}.
+          </p>
+        </li>
       </ul>
-
     </div>
-    
   </section>
 </template>
 
@@ -73,7 +81,7 @@ export default {
   methods: {
     toggleDetails() {
       this.detailsAreVisible = !this.detailsAreVisible;
-      if(this.detailsAreVisible===true){
+      if (this.detailsAreVisible === true) {
         this.searchDetails();
       }
     },
@@ -119,10 +127,10 @@ ul {
 #movieview button {
   vertical-align: top;
 }
-#genres, #country{
-  display:inline
+#genres,
+#country {
+  display: inline;
 }
 #details {
-
 }
 </style>

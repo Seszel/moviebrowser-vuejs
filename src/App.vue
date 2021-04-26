@@ -2,7 +2,11 @@
   <section>
     <page-header></page-header>
     <search-movie @movie-name="setMovieName"></search-movie>
-    <sort-movies v-if="movieName !== ''" @sort-data="changeOrder"></sort-movies>
+    <sort-movies
+      v-if="movieName !== ''"
+      @sort-data="changeOrder"
+      :new_name="movieName"
+    ></sort-movies>
     <movie-page
       :total_pages="movies.total_pages"
       @number-page="setPage"
@@ -19,7 +23,6 @@
         :vote_count="movie.vote_count"
         :poster_path="movie.poster_path"
         :overview="movie.overview"
-        @show-details="hideA"
       ></show-movie>
     </ul>
     <movie-page
@@ -39,17 +42,18 @@ export default {
       movies: [],
       pageNumber: 1,
       order: "",
-      moviesfor: []
+      moviesfor: [],
     };
   },
   watch: {
-    order(){
+    order() {
       this.sortedProducts();
-    }
+    },
   },
   methods: {
     setMovieName(getname) {
       this.movieName = getname;
+      this.order = "";
       this.searchMovies();
     },
     searchMovies() {
@@ -78,19 +82,15 @@ export default {
       this.order = getorder;
     },
     sortedProducts() {
-      if (this.order === 'A') {
+      if (this.order === "A") {
         return this.moviesfor.sort((a, b) => a.title.localeCompare(b.title));
-      }
-      else if (this.order === 'Z') {
+      } else if (this.order === "Z") {
         return this.moviesfor.sort((a, b) => b.title.localeCompare(a.title));
-      }
-      else if (this.order === 'P') {
-        return this.moviesfor.sort((a, b) => a.popularity - b.popularity);
-      }
-      else if (this.order === 'N'){
+      } else if (this.order === "P") {
         return this.moviesfor.sort((a, b) => b.popularity - a.popularity);
-      }
-      else {
+      } else if (this.order === "N") {
+        return this.moviesfor.sort((a, b) => a.popularity - b.popularity);
+      } else {
         return this.moviesfor;
       }
     },

@@ -3,10 +3,10 @@
     <strong>1</strong>
     <button type="pagination" @click="firstPage">❮❮</button>
     <button type="pagination" @click="previousPage">❮</button>
-    <strong>{{current_page}}</strong>
+    <strong>{{ current_page }}</strong>
     <button type="pagination" @click="nextPage">❯</button>
     <button type="pagination" @click="lastPage">❯❯</button>
-    <strong>{{total_pages}}</strong>
+    <strong>{{ total_pages }}</strong>
   </section>
 </template>
 
@@ -20,7 +20,7 @@ export default {
     current_page: {
       type: Number,
       required: true,
-    }
+    },
   },
   emits: ["number-page"],
   data() {
@@ -68,7 +68,7 @@ export default {
   color: white;
   background-color: rgb(59, 56, 56);
 }
-#app .pagination button:hover{
+#app .pagination button:hover {
   background-color: rgb(124, 23, 23);
 }
 </style>

@@ -1,8 +1,12 @@
 <template>
   <div class="wrapper">
     <select v-model="selected">
-      <option value=''>Kolejność przypadkowa</option>
-      <option v-for="option in options" :value="option.value" :key="option.value">
+      <option value="" disabled>Kolejność domyślna</option>
+      <option
+        v-for="option in options"
+        :value="option.value"
+        :key="option.value"
+      >
         {{ option.text }}
       </option>
     </select>
@@ -11,10 +15,16 @@
 
 <script>
 export default {
-  emits: ['sort-data'],
+  props: {
+    new_name: {
+      type: String,
+      required: true,
+    },
+  },
+  emits: ["sort-data"],
   data() {
     return {
-      selected: '',
+      selected: "",
       options: [
         { text: "Sortuj od a do z", value: "A" },
         { text: "Sortuj od z do a", value: "Z" },
@@ -24,11 +34,14 @@ export default {
     };
   },
   watch: {
-    selected(){
-      this.$emit('sort-data',this.selected);
-    }
+    selected() {
+      this.$emit("sort-data", this.selected);
+    },
+    new_name() {
+      this.selected = "";
+      this.$emit("sort-data", this.selected);
+    },
   },
-  methods: {},
 };
 </script>
 
