@@ -1,8 +1,14 @@
 <template>
   <section>
-    <div id="movieview">
+    <div class="movieview">
       <ul>
-        <li><img :src="'https://image.tmdb.org/t/p/w500' + poster_path" /></li>
+        <li>
+          <img
+            v-if="!isNotValid.poster"
+            :src="'https://image.tmdb.org/t/p/w500' + poster_path"
+          />
+          <p v-else>Brak plakatu filmu</p>
+        </li>
         <li>
           <strong>{{ title }}</strong>
         </li>
@@ -13,11 +19,11 @@
           <p>Liczba głosów: {{ vote_count }}</p>
         </li>
       </ul>
-      <button @click="toggleDetails">
+      <base-button @click="toggleDetails">
         {{ detailsAreVisible ? "Ukryj" : "Pokaż" }} szczegóły
-      </button>
+      </base-button>
 
-      <ul v-if="detailsAreVisible" id="details">
+      <ul v-if="detailsAreVisible">
         <li>
           <strong>Gatunki:</strong>
           <p v-for="genre in movie.genres" :key="genre.id" id="genres">
@@ -25,13 +31,17 @@
           </p>
         </li>
         <li>
-          <a :href="'https://www.themoviedb.org/movie/' + movie.id"
+          <a
+            v-if="!isNotValid.link"
+            :href="'https://www.themoviedb.org/movie/' + movie.id"
             >Link do IMDB</a
           >
+          <a v-else>Brak linku</a>
         </li>
         <li>
           <strong>Opis:</strong>
-          <p>{{ movie.overview }}</p>
+          <p v-if="!isNotValid.overview">{{ movie.overview }}</p>
+          <p v-else>Brak opisu filmu</p>
         </li>
         <li>
           <strong>Kraj produkcji:</strong>
@@ -49,6 +59,8 @@
 </template>
 
 <script>
+import env from "@/env.js";
+
 export default {
   props: {
     id: {
@@ -69,6 +81,10 @@ export default {
     },
     poster_path: {
       type: String,
+      required: false,
+    },
+    overview: {
+      type: String,
       required: true,
     },
   },
@@ -76,6 +92,11 @@ export default {
     return {
       detailsAreVisible: false,
       movie: [],
+      isNotValid: {
+        poster: false,
+        overview: false,
+        link: false,
+      },
     };
   },
   methods: {
@@ -86,7 +107,7 @@ export default {
       }
     },
     searchDetails() {
-      const api_key = "?api_key=41bd29c17951314ef43a94fc57c7c88d";
+      const api_key = "?api_key=" + env.apikey;
       const language = "&language=en-US&language=pl-PL";
       var url =
         "https://api.themoviedb.org/3/movie/" +
@@ -98,13 +119,30 @@ export default {
         .then((data) => {
           this.movie = data;
         });
+      this.checkIfValid("o", this.$props.overview, "");
+      this.checkIfValid("link", this.movie.link, undefined);
     },
+    checkIfValid(what, arg, type) {
+      if (arg === type) {
+        if (what === "o") {
+          this.isNotValid.overview = true;
+        } else if (what === "p") {
+          this.isNotValid.poster = true;
+        } else {
+          this.isNotValid.link = true;
+        }
+      }
+      //console.log(this.isNotValid.arg, arg, type);
+    },
+  },
+  beforeMount() {
+    this.checkIfValid("p", this.$props.poster_path, null);
   },
 };
 </script>
 
-<style>
-#movieview {
+<style scoped>
+.movieview {
   color: black;
   background-color: rgb(199, 169, 2);
   padding: 1rem;
@@ -113,24 +151,22 @@ export default {
   max-width: 15rem;
   text-align: center;
 }
+.movieview li strong {
+  width: 12rem;
+  display: inline-block;
+}
 img {
   width: 100%;
   height: auto;
 }
-#movieview li strong {
-  width: 12rem;
-  display: inline-block;
-}
 ul {
   list-style: none;
 }
-#movieview button {
-  vertical-align: top;
+a {
+  color: rgb(124, 23, 23);
 }
 #genres,
 #country {
   display: inline;
-}
-#details {
 }
 </style>

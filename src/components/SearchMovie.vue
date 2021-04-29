@@ -6,13 +6,14 @@
       </div>
       <div>
         <input type="text" placeholder=" Star Wars" v-model="enteredName" />
-        <button>Pokaż filmy</button>
+        <base-button>Pokaż filmy</base-button>
       </div>
     </form>
   </section>
 </template>
 
 <script>
+
 export default {
   emits: ["movie-name"],
   data() {
@@ -28,17 +29,17 @@ export default {
 };
 </script>
 
-<style>
-#app form {
+<style scoped>
+form {
   margin: 0.5rem auto;
   padding: 0.5rem;
   max-width: 30rem;
   text-align: center;
 }
-#app form div {
+form div {
   margin: 0.5rem;
 }
-#app label {
+label {
   color: white;
   font-weight: bold;
   margin-right: 1rem;
@@ -46,7 +47,7 @@ export default {
   display: inline-block;
   font-size: large;
 }
-#app form input {
+form input {
   background-color: white;
   width: 100%;
   height: 30px;

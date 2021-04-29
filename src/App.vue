@@ -1,53 +1,67 @@
 <template>
   <section>
-    <page-header></page-header>
+    <the-header></the-header>
     <search-movie @movie-name="setMovieName"></search-movie>
-    <sort-movies
-      v-if="movieName !== ''"
-      @sort-data="changeOrder"
-      :new_name="movieName"
-    ></sort-movies>
-    <movie-page
-      :total_pages="movies.total_pages"
-      @number-page="setPage"
-      :current_page="pageNumber"
-      v-if="movieName !== ''"
-    ></movie-page>
-    <ul id="filmlist">
-      <show-movie
-        v-for="movie in movies.results"
-        :key="movie.id"
-        :id="movie.id"
-        :title="movie.title"
-        :popularity="movie.popularity"
-        :vote_count="movie.vote_count"
-        :poster_path="movie.poster_path"
-        :overview="movie.overview"
-      ></show-movie>
-    </ul>
-    <movie-page
-      :total_pages="movies.total_pages"
-      @number-page="setPage"
-      :current_page="pageNumber"
-      v-if="movieName !== ''"
-    ></movie-page>
+    <p class="message" v-if="isLoading">Ładowanie filmów...</p>
+    <section v-else-if="movieName !== null" id="searching-result">
+      <sort-movies @sort-data="changeOrder" :new_name="movieName"></sort-movies>
+      <the-pagination
+        @number-page="setPage"
+        :total_pages="movies.total_pages"
+        :current_page="pageNumber"
+      ></the-pagination>
+      <ul class="filmlist">
+        <show-movie
+          v-for="movie in moviesfor"
+          :key="movie.id"
+          :id="movie.id"
+          :title="movie.title"
+          :popularity="movie.popularity"
+          :vote_count="movie.vote_count"
+          :poster_path="movie.poster_path"
+          :overview="movie.overview"
+        ></show-movie>
+      </ul>
+      <the-pagination
+        :total_pages="movies.total_pages"
+        @number-page="setPage"
+        :current_page="pageNumber"
+      ></the-pagination>
+    </section>
   </section>
 </template>
 
 <script>
+import env from "@/env.js";
+import TheHeader from "./components/layouts/TheHeader.vue";
+import ShowMovie from "./components/ShowMovie.vue";
+import ThePagination from "./components/layouts/ThePagination.vue";
+import SortMovies from "./components/SortMovies.vue";
+
 export default {
+  components: {
+    TheHeader,
+    ShowMovie,
+    ThePagination,
+    SortMovies,
+  },
   data() {
     return {
-      movieName: "",
+      movieName: null,
       movies: [],
       pageNumber: 1,
-      order: "",
       moviesfor: [],
+      isLoading: false,
+      order: "",
+      error: null,
     };
   },
   watch: {
     order() {
       this.sortedProducts();
+    },
+    movieName() {
+      this.pageNumber = 1;
     },
   },
   methods: {
@@ -57,7 +71,8 @@ export default {
       this.searchMovies();
     },
     searchMovies() {
-      const api_key = "api_key=41bd29c17951314ef43a94fc57c7c88d";
+      this.isLoading = true;
+      const api_key = "api_key=" + env.apikey;
       const language = "&language=en-US&language=pl-PL";
       var url =
         "https://api.themoviedb.org/4/search/movie?" +
@@ -70,6 +85,7 @@ export default {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
+          this.isLoading = false;
           this.movies = data;
           this.moviesfor = data.results;
         });
@@ -109,32 +125,14 @@ html {
   background-color: black;
   background-position: bottom;
 }
-#app search-movie {
-  text-align: center;
-}
-#app button {
-  cursor: pointer;
-  border: 1px solid black;
-  background-color: rgb(199, 169, 2);
-  transition: background-color 0.3s;
-  color: black;
-  padding: 0.15rem 0.3rem;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.26);
-  display: block;
-  text-align: center;
-  display: inline;
-  font-size: large;
-  margin: 0.5rem;
-}
-#app button:hover {
-  background-color: rgb(124, 23, 23);
-  color: white;
-  border: 1px solid white;
-}
-#app ul {
+.filmlist {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+}
+.message {
+  color: white;
+  text-align: center;
 }
 </style>

@@ -45,19 +45,19 @@ export default {
 };
 </script>
 
-<style>
-#app .wrapper {
+<style scoped>
+.wrapper {
   color: white;
   justify-content: center;
   align-items: center;
   text-align: center;
   padding: 1rem;
 }
-#app .wrapper select {
+.wrapper select {
   height: 1.5rem;
   font-size: medium;
 }
-#app .wrapper select option {
+.wrapper select option {
   font-size: medium;
 }
 </style>
