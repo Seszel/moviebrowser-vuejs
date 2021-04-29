@@ -22,8 +22,8 @@
       <base-button @click="toggleDetails">
         {{ detailsAreVisible ? "Ukryj" : "Pokaż" }} szczegóły
       </base-button>
-
-      <ul v-if="detailsAreVisible">
+      <p class="message" v-if="isLoading">Ładowanie informacji...</p>
+      <ul v-else-if="detailsAreVisible">
         <li>
           <strong>Gatunki:</strong>
           <p v-for="genre in movie.genres" :key="genre.id" id="genres">
@@ -97,6 +97,7 @@ export default {
         overview: false,
         link: false,
       },
+      isLoading: false,
     };
   },
   methods: {
@@ -107,6 +108,7 @@ export default {
       }
     },
     searchDetails() {
+      this.isLoading = true;
       const api_key = "?api_key=" + env.apikey;
       const language = "&language=en-US&language=pl-PL";
       var url =
@@ -117,6 +119,7 @@ export default {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
+          this.isLoading = false;
           this.movie = data;
         });
       this.checkIfValid("o", this.$props.overview, "");
