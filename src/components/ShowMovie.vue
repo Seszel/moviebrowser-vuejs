@@ -7,7 +7,10 @@
             v-if="!isNotValid.poster"
             :src="'https://image.tmdb.org/t/p/w500' + poster_path"
           />
-          <p v-else>Brak plakatu filmu</p>
+          <img
+            v-else
+            :src="'https://critics.io/img/movies/poster-placeholder.png'"
+          />
         </li>
         <li>
           <strong>{{ title }}</strong>
@@ -23,14 +26,8 @@
         {{ detailsAreVisible ? "Ukryj" : "Pokaż" }} szczegóły
       </base-button>
       <p class="message" v-if="isLoading">Ładowanie informacji...</p>
-      <ul v-else-if="detailsAreVisible">
-        <li>
-          <strong>Gatunki:</strong>
-          <p v-for="genre in movie.genres" :key="genre.id" id="genres">
-            {{ genre.name }}.
-          </p>
-        </li>
-        <li>
+      <ul v-else-if="detailsAreVisible" class="details">
+         <li>
           <a
             v-if="!isNotValid.link"
             :href="'https://www.themoviedb.org/movie/' + movie.id"
@@ -39,8 +36,15 @@
           <a v-else>Brak linku</a>
         </li>
         <li>
-          <strong>Opis:</strong>
-          <p v-if="!isNotValid.overview">{{ movie.overview }}</p>
+          <strong>Gatunki:</strong><br>
+          <p v-for="genre in movie.genres" :key="genre.id" id="genres">
+            {{ genre.name }}.
+          </p>
+        </li>
+       
+        <li>
+          <strong>Opis:</strong><br>
+          <p v-if="!isNotValid.overview" id="overview">{{ movie.overview }}</p>
           <p v-else>Brak opisu filmu</p>
         </li>
         <li>
@@ -123,7 +127,7 @@ export default {
           this.movie = data;
         });
       this.checkIfValid("o", this.$props.overview, "");
-      this.checkIfValid("link", this.movie.link, undefined);
+      this.checkIfValid("l", this.$props.id, undefined);
     },
     checkIfValid(what, arg, type) {
       if (arg === type) {
@@ -131,11 +135,10 @@ export default {
           this.isNotValid.overview = true;
         } else if (what === "p") {
           this.isNotValid.poster = true;
-        } else {
+        } else if (what === "l") {
           this.isNotValid.link = true;
         }
       }
-      //console.log(this.isNotValid.arg, arg, type);
     },
   },
   beforeMount() {
@@ -151,7 +154,7 @@ export default {
   padding: 1rem;
   margin: 1rem;
   width: 100%;
-  max-width: 15rem;
+  max-width: 16rem;
   text-align: center;
 }
 .movieview li strong {
@@ -167,6 +170,12 @@ ul {
 }
 a {
   color: rgb(124, 23, 23);
+}
+.details {
+  text-align: left;
+}
+#overview {
+  text-align: justify;
 }
 #genres,
 #country {
