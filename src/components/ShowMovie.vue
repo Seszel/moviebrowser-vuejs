@@ -135,8 +135,8 @@ export default {
         });
       this.checkIfValid("o", this.$props.overview, "");
       this.checkIfValid("l", this.$props.id, undefined);
-      this.checkIfValid("c", this.movie.country, undefined);
-      this.checkIfValid("g", this.movie.genres, undefined);
+      this.checkIfValid("c", this.movie.production_countries, []);
+      this.checkIfValid("g", this.movie.genres, []);
     },
     checkIfValid(what, arg, type) {
       if (arg === type) {
