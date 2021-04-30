@@ -1,15 +1,25 @@
 <template>
   <section>
     <header>
-      <h2>Movie browser</h2>
-      <p>
+      <h2 @click="reloadPage">Movie browser</h2>
+      <a href="https://pl.wikipedia.org/wiki/Alfred_Hitchcock"><p>
         For me, the cinema is not slice of life, but a piece of cake.<sub>
           ~ Alfred Hitchcock</sub
         >
-      </p>
+      </p></a>
     </header>
   </section>
 </template>
+
+<script>
+export default {
+  methods: {
+    reloadPage() {
+      window.location.reload();
+    },
+  },
+};
+</script>
 
 <style scoped>
 header {
@@ -26,5 +36,12 @@ header p {
 }
 header p sub {
   font-size: small;
+}
+h2 {
+  cursor: pointer;
+}
+a {
+  color: white;
+  text-decoration: none;
 }
 </style>
