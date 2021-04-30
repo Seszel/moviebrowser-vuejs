@@ -60,4 +60,10 @@ export default {
 .wrapper select option {
   font-size: medium;
 }
+
+@media (max-width: 600px) {
+  .wrapper select option {
+    font-size: small;
+  }
+}
 </style>

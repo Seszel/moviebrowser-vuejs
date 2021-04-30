@@ -2,11 +2,7 @@
   <section>
     <the-header></the-header>
     <search-movie @movie-name="setMovieName"></search-movie>
-    <base-dialog
-      v-if="dialog"
-      title="Brak filmu w bazie"
-      @close="confirmError"
-    >
+    <base-dialog v-if="dialog" title="Brak filmu w bazie" @close="confirmError">
       <template #default>
         Przykro nam, ale nie ma takiego filmu w naszej bazie 😞.<br />
         Upewnij sie, czy nie popełniłeś literówki i spróbuj ponownie!
@@ -86,7 +82,6 @@ export default {
       this.order = "";
       this.error = false;
       this.searchMovies();
-
     },
     searchMovies() {
       this.isLoading = true;

@@ -46,4 +46,21 @@ a {
   color: white;
   text-decoration: none;
 }
+@media (max-width: 600px) {
+  header {
+    flex-wrap: wrap;
+    justify-content: space-around;
+    text-align: center;
+  }
+  header p {
+    font-size: small;
+  }
+  header p sub {
+    font-size: x-small;
+  }
+  h2 {
+    text-align: center;
+    padding-bottom: 8px;
+  }
+}
 </style>

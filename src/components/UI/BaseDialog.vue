@@ -71,10 +71,16 @@ menu {
   margin: 0;
 }
 
-/* @media (min-width: 768px) {
+@media (min-width: 600px) {
   dialog {
     left: calc(50% - 20rem);
     width: 40rem;
   }
-} */
+}
+@media (max-width: 600px) {
+  dialog {
+    left: calc(50% - 7.5rem);
+    width: 15rem;
+  }
+}
 </style>

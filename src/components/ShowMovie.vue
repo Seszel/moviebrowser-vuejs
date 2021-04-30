@@ -37,10 +37,10 @@
         </li>
         <li>
           <strong>Gatunki:</strong><br />
-          <div v-if="!isNotValid.genres">
+          <div>
             <p>{{ genres(movie.genres) }}</p>
           </div>
-          <p v-else>Brak informacji</p>
+          <!-- <p v-else>Brak informacji</p> -->
         </li>
         <li>
           <strong>Opis:</strong><br />
@@ -49,10 +49,10 @@
         </li>
         <li>
           <strong>Kraj produkcji:</strong>
-          <div v-if="!isNotValid.country">
+          <div>
             <p>{{ language(movie.production_countries) }}</p>
           </div>
-          <p v-else>Brak informacji</p>
+          <!-- <p v-else>Brak informacji</p> -->
         </li>
       </ul>
     </div>
@@ -128,8 +128,6 @@ export default {
         });
       this.checkIfValid("o", this.$props.overview, "");
       this.checkIfValid("l", this.$props.id, undefined);
-      this.checkIfValid("c", this.movie.production_countries, []);
-      this.checkIfValid("g", this.movie.genres, []);
     },
     checkIfValid(what, arg, type) {
       if (arg === type) {
@@ -139,37 +137,37 @@ export default {
           this.isNotValid.poster = true;
         } else if (what === "l") {
           this.isNotValid.link = true;
-        } else if (what === "c") {
-          this.isNotValid.country = true;
-        } else if (what === "g") {
-          this.isNotValid.genres = true;
         }
       }
     },
     language(prodCount) {
-      var name_pl = [];
+      var name_pl = "";
       const countries = data.default;
-      prodCount.forEach((country, index) => {
-        const name_pl_str = countries.find(
-          (c) => c.code === country.iso_3166_1
-        );
-        if (index === prodCount.length - 1) {
-          name_pl += name_pl_str.name_pl;
-        } else {
-          name_pl += name_pl_str.name_pl + ", ";
-        }
-      });
+      if (prodCount.length > 0) {
+        prodCount.forEach((country, index) => {
+          const name_pl_str = countries.find(
+            (c) => c.code === country.iso_3166_1
+          );
+          if (index === prodCount.length - 1) {
+            name_pl += name_pl_str.name_pl;
+          } else {
+            name_pl += name_pl_str.name_pl + ", ";
+          }
+        });
+      } else name_pl = "Brak informacji";
       return name_pl;
     },
     genres(gen) {
       var gen_str = "";
-      gen.forEach((g, index) => {
-        if (index === gen.length - 1) {
-          gen_str += g.name;
-        } else {
-          gen_str += g.name + ", ";
-        }
-      });
+      if (gen.length > 0) {
+        gen.forEach((g, index) => {
+          if (index === gen.length - 1) {
+            gen_str += g.name;
+          } else {
+            gen_str += g.name + ", ";
+          }
+        });
+      } else gen_str = "Brak informacji";
       return gen_str;
     },
   },
