@@ -2,11 +2,13 @@
   <section>
     <header>
       <h2 @click="reloadPage">Movie browser</h2>
-      <a href="https://pl.wikipedia.org/wiki/Alfred_Hitchcock"><p>
-        For me, the cinema is not slice of life, but a piece of cake.<sub>
-          ~ Alfred Hitchcock</sub
-        >
-      </p></a>
+      <a href="https://pl.wikipedia.org/wiki/Alfred_Hitchcock"
+        ><p>
+          For me, the cinema is not slice of life, but a piece of cake.<sub>
+            ~ Alfred Hitchcock</sub
+          >
+        </p></a
+      >
     </header>
   </section>
 </template>

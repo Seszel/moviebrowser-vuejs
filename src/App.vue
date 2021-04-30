@@ -2,12 +2,21 @@
   <section>
     <the-header></the-header>
     <search-movie @movie-name="setMovieName"></search-movie>
-    <p class="message" v-if="error">
-      Przykro nam, ale nie ma takiego filmu w naszej bazie 😞<br />Spróbuj
-      ponownie.
-    </p>
+    <base-dialog
+      v-if="dialog"
+      title="Brak filmu w bazie"
+      @close="confirmError"
+    >
+      <template #default>
+        Przykro nam, ale nie ma takiego filmu w naszej bazie 😞.<br />
+        Upewnij sie, czy nie popełniłeś literówki i spróbuj ponownie!
+      </template>
+      <template #actions>
+        <base-button @click="confirmError">Rozumiem</base-button>
+      </template>
+    </base-dialog>
     <p class="message" v-else-if="isLoading">Ładowanie filmów...</p>
-    <section v-else-if="movieName !== null" id="searching-result">
+    <section v-else-if="movieName !== null && !error" id="searching-result">
       <sort-movies @sort-data="changeOrder" :new_name="movieName"></sort-movies>
       <the-pagination
         @number-page="setPage"
@@ -41,6 +50,7 @@ import TheHeader from "./components/layouts/TheHeader.vue";
 import ShowMovie from "./components/ShowMovie.vue";
 import ThePagination from "./components/layouts/ThePagination.vue";
 import SortMovies from "./components/SortMovies.vue";
+import SearchMovie from "./components/SearchMovie.vue";
 
 export default {
   components: {
@@ -48,6 +58,7 @@ export default {
     ShowMovie,
     ThePagination,
     SortMovies,
+    SearchMovie,
   },
   data() {
     return {
@@ -58,6 +69,7 @@ export default {
       isLoading: false,
       order: "",
       error: false,
+      dialog: false,
     };
   },
   watch: {
@@ -72,7 +84,9 @@ export default {
     setMovieName(getname) {
       this.movieName = getname;
       this.order = "";
+      this.error = false;
       this.searchMovies();
+
     },
     searchMovies() {
       this.isLoading = true;
@@ -117,8 +131,12 @@ export default {
     },
     checkIfValid(arg, type) {
       if (arg === type) {
-        this.error = true;
+        this.dialog = true;
       }
+    },
+    confirmError() {
+      this.dialog = false;
+      this.error = true;
     },
   },
 };

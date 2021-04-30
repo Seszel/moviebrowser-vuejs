@@ -5,7 +5,7 @@
         <label>Czego szukasz?</label>
       </div>
       <div>
-        <input type="text" placeholder=" Star Wars" v-model="enteredName" />
+        <input type="text" placeholder=" Tytuł filmu" v-model="enteredName" />
         <base-button>Pokaż filmy</base-button>
       </div>
     </form>
@@ -13,7 +13,6 @@
 </template>
 
 <script>
-
 export default {
   emits: ["movie-name"],
   data() {
