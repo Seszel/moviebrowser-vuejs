@@ -71,10 +71,10 @@ menu {
   margin: 0;
 }
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   dialog {
     left: calc(50% - 20rem);
     width: 40rem;
   }
-}
+} */
 </style>

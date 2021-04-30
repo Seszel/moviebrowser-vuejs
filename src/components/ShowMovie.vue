@@ -38,9 +38,6 @@
         <li>
           <strong>Gatunki:</strong><br />
           <div v-if="!isNotValid.genres">
-            <!-- <p v-for="genre in movie.genres" :key="genre.id" id="genres">
-              {{ genre.name }}.
-            </p> -->
             <p>{{ genres(movie.genres) }}</p>
           </div>
           <p v-else>Brak informacji</p>
@@ -52,15 +49,6 @@
         </li>
         <li>
           <strong>Kraj produkcji:</strong>
-          <!-- <div v-if="!isNotValid.country">
-            <p
-              v-for="country in movie.production_countries"
-              :key="country.id"
-              id="country"
-            >
-              {{ country.name }}.
-            </p>
-          </div> -->
           <div v-if="!isNotValid.country">
             <p>{{ language(movie.production_countries) }}</p>
           </div>
