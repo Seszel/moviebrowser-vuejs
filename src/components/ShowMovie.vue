@@ -38,9 +38,10 @@
         <li>
           <strong>Gatunki:</strong><br />
           <div v-if="!isNotValid.genres">
-            <p v-for="genre in movie.genres" :key="genre.id" id="genres">
+            <!-- <p v-for="genre in movie.genres" :key="genre.id" id="genres">
               {{ genre.name }}.
-            </p>
+            </p> -->
+            <p>{{ genres(movie.genres) }}</p>
           </div>
           <p v-else>Brak informacji</p>
         </li>
@@ -51,7 +52,7 @@
         </li>
         <li>
           <strong>Kraj produkcji:</strong>
-          <div v-if="!isNotValid.country">
+          <!-- <div v-if="!isNotValid.country">
             <p
               v-for="country in movie.production_countries"
               :key="country.id"
@@ -59,6 +60,9 @@
             >
               {{ country.name }}.
             </p>
+          </div> -->
+          <div v-if="!isNotValid.country">
+            <p>{{ language(movie.production_countries) }}</p>
           </div>
           <p v-else>Brak informacji</p>
         </li>
@@ -69,6 +73,7 @@
 
 <script>
 import env from "@/env.js";
+import * as data from "../assets/countries_translate.json";
 
 export default {
   props: {
@@ -121,7 +126,7 @@ export default {
     searchDetails() {
       this.isLoading = true;
       const api_key = "?api_key=" + env.apikey;
-      const language = "&language=en-US&language=pl-PL";
+      const language = "&language=pl-PL";
       var url =
         "https://api.themoviedb.org/3/movie/" +
         this.$props.id +
@@ -152,6 +157,32 @@ export default {
           this.isNotValid.genres = true;
         }
       }
+    },
+    language(prodCount) {
+      var name_pl = [];
+      const countries = data.default;
+      prodCount.forEach((country, index) => {
+        const name_pl_str = countries.find(
+          (c) => c.code === country.iso_3166_1
+        );
+        if (index === prodCount.length - 1) {
+          name_pl += name_pl_str.name_pl;
+        } else {
+          name_pl += name_pl_str.name_pl + ", ";
+        }
+      });
+      return name_pl;
+    },
+    genres(gen) {
+      var gen_str = "";
+      gen.forEach((g, index) => {
+        if (index === gen.length - 1) {
+          gen_str += g.name;
+        } else {
+          gen_str += g.name + ", ";
+        }
+      });
+      return gen_str;
     },
   },
   beforeMount() {
