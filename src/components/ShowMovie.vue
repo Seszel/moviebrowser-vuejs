@@ -27,7 +27,7 @@
       </base-button>
       <p class="message" v-if="isLoading">Ładowanie informacji...</p>
       <ul v-else-if="detailsAreVisible" class="details">
-         <li>
+        <li>
           <a
             v-if="!isNotValid.link"
             :href="'https://www.themoviedb.org/movie/' + movie.id"
@@ -36,26 +36,31 @@
           <a v-else>Brak linku</a>
         </li>
         <li>
-          <strong>Gatunki:</strong><br>
-          <p v-for="genre in movie.genres" :key="genre.id" id="genres">
-            {{ genre.name }}.
-          </p>
+          <strong>Gatunki:</strong><br />
+          <div v-if="!isNotValid.genres">
+            <p v-for="genre in movie.genres" :key="genre.id" id="genres">
+              {{ genre.name }}.
+            </p>
+          </div>
+          <p v-else>Brak informacji</p>
         </li>
-       
         <li>
-          <strong>Opis:</strong><br>
+          <strong>Opis:</strong><br />
           <p v-if="!isNotValid.overview" id="overview">{{ movie.overview }}</p>
-          <p v-else>Brak opisu filmu</p>
+          <p v-else>Brak informacji</p>
         </li>
         <li>
           <strong>Kraj produkcji:</strong>
-          <p
-            v-for="country in movie.production_countries"
-            :key="country.id"
-            id="country"
-          >
-            {{ country.name }}.
-          </p>
+          <div v-if="!isNotValid.country">
+            <p
+              v-for="country in movie.production_countries"
+              :key="country.id"
+              id="country"
+            >
+              {{ country.name }}.
+            </p>
+          </div>
+          <p v-else>Brak informacji</p>
         </li>
       </ul>
     </div>
@@ -100,6 +105,8 @@ export default {
         poster: false,
         overview: false,
         link: false,
+        country: false,
+        genres: false,
       },
       isLoading: false,
     };
@@ -128,6 +135,8 @@ export default {
         });
       this.checkIfValid("o", this.$props.overview, "");
       this.checkIfValid("l", this.$props.id, undefined);
+      this.checkIfValid("c", this.movie.country, undefined);
+      this.checkIfValid("g", this.movie.genres, undefined);
     },
     checkIfValid(what, arg, type) {
       if (arg === type) {
@@ -137,6 +146,10 @@ export default {
           this.isNotValid.poster = true;
         } else if (what === "l") {
           this.isNotValid.link = true;
+        } else if (what === "c") {
+          this.isNotValid.country = true;
+        } else if (what === "g") {
+          this.isNotValid.genres = true;
         }
       }
     },
