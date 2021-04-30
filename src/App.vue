@@ -2,7 +2,11 @@
   <section>
     <the-header></the-header>
     <search-movie @movie-name="setMovieName"></search-movie>
-    <p class="message" v-if="isLoading">Ładowanie filmów...</p>
+    <p class="message" v-if="error">
+      Przykro nam, ale nie ma takiego filmu w naszej bazie 😞<br />Spróbuj
+      ponownie.
+    </p>
+    <p class="message" v-else-if="isLoading">Ładowanie filmów...</p>
     <section v-else-if="movieName !== null" id="searching-result">
       <sort-movies @sort-data="changeOrder" :new_name="movieName"></sort-movies>
       <the-pagination
@@ -53,7 +57,7 @@ export default {
       moviesfor: [],
       isLoading: false,
       order: "",
-      error: null,
+      error: false,
     };
   },
   watch: {
@@ -88,6 +92,7 @@ export default {
           this.isLoading = false;
           this.movies = data;
           this.moviesfor = data.results;
+          this.checkIfValid(this.movies.total_pages, 0);
         });
     },
     setPage(getpage) {
@@ -108,6 +113,11 @@ export default {
         return this.moviesfor.sort((a, b) => a.popularity - b.popularity);
       } else {
         return this.moviesfor;
+      }
+    },
+    checkIfValid(arg, type) {
+      if (arg === type) {
+        this.error = true;
       }
     },
   },
