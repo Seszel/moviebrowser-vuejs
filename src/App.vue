@@ -23,12 +23,7 @@
         <show-movie
           v-for="movie in moviesfor"
           :key="movie.id"
-          :id="movie.id"
-          :title="movie.title"
-          :popularity="movie.popularity"
-          :vote_count="movie.vote_count"
-          :poster_path="movie.poster_path"
-          :overview="movie.overview"
+          :movie="movie"
         ></show-movie>
       </ul>
       <the-pagination
@@ -87,7 +82,7 @@ export default {
       this.isLoading = true;
       const api_key = "api_key=" + env.apikey;
       const language = "&language=en-US&language=pl-PL";
-      var url =
+      let url =
         "https://api.themoviedb.org/4/search/movie?" +
         api_key +
         language +
