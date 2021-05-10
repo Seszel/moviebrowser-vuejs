@@ -1,7 +1,7 @@
 <template>
   <section>
-    <the-header></the-header>
-    <the-views></the-views>
+    <the-header @log-info="setLogInfo"></the-header>
+    <the-views :logIn="logInfo"></the-views>
   </section>
 </template>
 
@@ -15,6 +15,16 @@ export default {
     TheHeader,
     TheViews
   },
+  data() {
+    return {
+      logInfo: false
+    }
+  },
+  methods:{
+    setLogInfo(getinfo) {
+      this.logInfo = getinfo;
+    },
+  }
 };
 </script>
 

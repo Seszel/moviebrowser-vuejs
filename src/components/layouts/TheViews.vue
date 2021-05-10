@@ -1,9 +1,5 @@
 <template>
   <section>
-    <base-button @click="logInOut"
-      >{{ !logIn ? "Zaloguj" : "Wyloguj" }} mnie</base-button
-    >
-    <p v-if="logIn" class="message">Joanna Adamczyk</p>
     <div v-if="logIn" class="message">
       <base-button @click="setSelectedTab('home-page')"
         >Wyszukiwanie filmów</base-button
@@ -24,10 +20,15 @@ import FavouriteMovies from "../FavouritePage.vue";
 
 export default {
   components: { HomePage, FavouriteMovies },
+  props: {
+    logIn: {
+      type: Boolean,
+      required: true,
+    },
+  },
   data() {
     return {
       selectedTab: "home-page",
-      logIn: false,
     };
   },
   computed: {
@@ -39,9 +40,6 @@ export default {
     },
   },
   methods: {
-    logInOut() {
-      this.logIn = !this.logIn;
-    },
     setSelectedTab(tab) {
       this.selectedTab = tab;
     },
