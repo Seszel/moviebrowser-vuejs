@@ -1,10 +1,10 @@
 <template>
   <section>
     <div v-if="logIn" class="message">
-      <base-button @click="setSelectedTab('home-page')"
+      <base-button @click="setSelectedTab('browser-page')"
         >Wyszukiwanie filmów</base-button
       >
-      <base-button @click="setSelectedTab('favourite-movies')"
+      <base-button @click="setSelectedTab('favourite-page')"
         >Moje ulubione filmy</base-button
       >
     </div>
@@ -15,11 +15,11 @@
 </template>
 
 <script>
-import HomePage from "../BrowserPage.vue";
-import FavouriteMovies from "../FavouritePage.vue";
+import BrowserPage from "../BrowserPage.vue";
+import FavouritePage from "../FavouritePage.vue";
 
 export default {
-  components: { HomePage, FavouriteMovies },
+  components: { BrowserPage, FavouritePage },
   props: {
     logIn: {
       type: Boolean,
@@ -28,17 +28,14 @@ export default {
   },
   data() {
     return {
-      selectedTab: "home-page",
+      selectedTab: "browser-page",
+      fav: Object,
+      favouriteMovies: [],
+      array: [],
+      componentKey: 0,
     };
   },
-  computed: {
-    SearchMoviesButtonMode() {
-      return this.selectedTab === "search-movie" ? null : "flat";
-    },
-    FavMoviesButtonMode() {
-      return this.selectedTab === "favourite-movies" ? null : "flat";
-    },
-  },
+
   methods: {
     setSelectedTab(tab) {
       this.selectedTab = tab;

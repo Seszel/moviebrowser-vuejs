@@ -58,6 +58,7 @@ export default {
       order: "",
       error: false,
       dialog: false,
+      fav: Object,
     };
   },
   watch: {
@@ -125,6 +126,10 @@ export default {
       this.dialog = false;
       this.error = true;
     },
+    setFav(getfav){
+      this.fav = getfav;
+      console.log(this.fav);
+    }
   },
 };
 </script>

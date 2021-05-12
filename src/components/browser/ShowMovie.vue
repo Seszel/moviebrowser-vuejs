@@ -23,6 +23,8 @@
         </li>
       </ul>
       <base-button @click="toggleDetails">Pokaż szczegóły</base-button>
+      <base-button @click="addToFavourites">Dodaj do ulubionych</base-button>
+      <!-- <img class="fav" src="@/assets/heart.png" @click="addToFavourites" /> -->
       <base-dialog v-if="modal" :title="movie.title" @close="confirmDetails">
         <template #default>
           <p class="messageblack" v-if="isLoading">Ładowanie informacji...</p>
@@ -69,6 +71,7 @@ import env from "@/env.js";
 import * as data from "@/countries_translate.json";
 
 export default {
+  // emits: ["favourite-movie"],
   props: {
     movie: {
       type: Object,
@@ -86,13 +89,23 @@ export default {
       },
       isLoading: false,
       modal: false,
+      favouriteMovie: {
+        poster: "",
+        title: "",
+        popularity: "",
+        vote_count: "",
+        overview: "",
+        link: "",
+        genres: "",
+        countries: "",
+      },
     };
   },
   methods: {
     toggleDetails() {
       this.detailsAreVisible = !this.detailsAreVisible;
       if (this.detailsAreVisible === true) {
-        this.searchDetails();
+        // this.searchDetails();
         this.modal = true;
       }
     },
@@ -159,9 +172,42 @@ export default {
       this.modal = false;
       this.detailsAreVisible = false;
     },
+    addToFavourites() {
+      this.favouriteMovie.title = this.$props.movie.title;
+      if (this.isNotValid.poster === false) {
+        this.favouriteMovie.poster_path =
+          "https://image.tmdb.org/t/p/w500" + this.$props.movie.poster_path;
+      } else {
+        this.favouriteMovie.poster_path =
+          "https://critics.io/img/movies/poster-placeholder.png";
+      }
+      this.favouriteMovie.popularity = this.$props.movie.popularity;
+      this.favouriteMovie.vote_count = this.$props.movie.vote_count;
+      if (this.isNotValid.overview === false) {
+        this.favouriteMovie.overview = this.$props.movie.overview;
+      } else {
+        this.favouriteMovie.overview = "Brak informacji";
+      }
+      if (this.isNotValid.link === false) {
+        this.favouriteMovie.link =
+          "https://www.themoviedb.org/movie/" + this.$props.movie.id;
+      } else {
+        this.favouriteMovie.link = "Brak linku";
+      }
+      this.favouriteMovie.genres = this.genres(this.movieDet.genres);
+      this.favouriteMovie.countries = this.language(
+        this.movieDet.production_countries
+      );
+      if (!this.MOVIES.includes(this.favouriteMovie)){
+         this.MOVIES.push(this.favouriteMovie);
+         console.log(this.MOVIES)
+      }
+      // this.$parent.$emit("favourite-movie", this.favouriteMovie);
+    },
   },
   beforeMount() {
     this.checkIfValid("p", this.$props.movie.poster_path, null);
+    this.searchDetails();
   },
 };
 </script>
@@ -202,5 +248,9 @@ a {
 }
 .messageblack {
   color: black;
+}
+.fav {
+  width: 20%;
+  cursor: pointer;
 }
 </style>

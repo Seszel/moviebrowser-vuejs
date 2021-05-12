@@ -9,5 +9,6 @@ const app = createApp(App);
 
 app.component("base-button", BaseButton);
 app.component("base-dialog", BaseDialog);
+app.config.globalProperties.MOVIES = [];
 
 app.mount("#app");
