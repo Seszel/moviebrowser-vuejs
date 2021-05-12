@@ -129,6 +129,9 @@ export default {
     setFav(getfav){
       this.fav = getfav;
       console.log(this.fav);
+    },
+    inFavourite(){
+      this
     }
   },
 };

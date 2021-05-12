@@ -1,18 +1,30 @@
 <template>
   <div>
-    <ul v-for="mov in MOVIES" :key="mov.title">
-      <li style="color: yellow;">
-        {{ mov.title }}
-      </li>
+    <ul class="favfilmlist">
+      <favourite-movie
+        v-for="mov in MOVIES"
+        :key="mov.title"
+        :mov="mov"
+      ></favourite-movie>
     </ul>
   </div>
 </template>
 
 <script>
+import FavouriteMovie from "./ShowFavouriteMovie.vue";
 export default {
+  components: { FavouriteMovie },
   data() {
-    return {
-    };
+    return {};
   },
 };
 </script>
+
+<style scoped>
+.favfilmlist {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+</style>

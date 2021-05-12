@@ -23,46 +23,47 @@
         </li>
       </ul>
       <base-button @click="toggleDetails">Pokaż szczegóły</base-button>
-      <base-button @click="addToFavourites">Dodaj do ulubionych</base-button>
-      <!-- <img class="fav" src="@/assets/heart.png" @click="addToFavourites" /> -->
-      <base-dialog v-if="modal" :title="movie.title" @close="confirmDetails">
-        <template #default>
-          <p class="messageblack" v-if="isLoading">Ładowanie informacji...</p>
-          <ul v-else-if="detailsAreVisible" class="details">
-            <li>
-              <a
-                v-if="!isNotValid.link"
-                :href="'https://www.themoviedb.org/movie/' + movie.id"
-                >Link do IMDB</a
-              >
-              <a v-else>Brak linku</a>
-            </li>
-            <li>
-              <strong>Gatunki:</strong><br />
-              <div>
-                <p>{{ genres(movieDet.genres) }}</p>
-              </div>
-            </li>
-            <li>
-              <strong>Opis:</strong><br />
-              <p v-if="!isNotValid.overview" id="overview">
-                {{ movie.overview }}
-              </p>
-              <p v-else>Brak informacji</p>
-            </li>
-            <li>
-              <strong>Kraj produkcji:</strong>
-              <div>
-                <p>{{ language(movieDet.production_countries) }}</p>
-              </div>
-            </li>
-          </ul>
-        </template>
-        <template #actions>
-          <base-button @click="confirmDetails">Ukryj szczegóły</base-button>
-        </template>
-      </base-dialog>
+      <base-button @click="addToFavourites"
+        >{{ isFavourite ? "Usuń z " : "Dodaj do " }}ulubionych</base-button
+      >
     </div>
+    <base-dialog v-if="modal" :title="movie.title" @close="confirmDetails">
+      <template #default>
+        <p class="messageblack" v-if="isLoading">Ładowanie informacji...</p>
+        <ul v-else-if="detailsAreVisible" class="details">
+          <li>
+            <a
+              v-if="!isNotValid.link"
+              :href="'https://www.themoviedb.org/movie/' + movie.id"
+              >Link do IMDB</a
+            >
+            <a v-else>Brak linku</a>
+          </li>
+          <li>
+            <strong>Gatunki:</strong><br />
+            <div>
+              <p>{{ genres(movieDet.genres) }}</p>
+            </div>
+          </li>
+          <li>
+            <strong>Opis:</strong><br />
+            <p v-if="!isNotValid.overview" id="overview">
+              {{ movie.overview }}
+            </p>
+            <p v-else>Brak informacji</p>
+          </li>
+          <li>
+            <strong>Kraj produkcji:</strong>
+            <div>
+              <p>{{ language(movieDet.production_countries) }}</p>
+            </div>
+          </li>
+        </ul>
+      </template>
+      <template #actions>
+        <base-button @click="confirmDetails">Ukryj szczegóły</base-button>
+      </template>
+    </base-dialog>
   </section>
 </template>
 
@@ -99,6 +100,7 @@ export default {
         genres: "",
         countries: "",
       },
+      isFavourite: false,
     };
   },
   methods: {
@@ -173,39 +175,59 @@ export default {
       this.detailsAreVisible = false;
     },
     addToFavourites() {
-      this.favouriteMovie.title = this.$props.movie.title;
-      if (this.isNotValid.poster === false) {
-        this.favouriteMovie.poster_path =
-          "https://image.tmdb.org/t/p/w500" + this.$props.movie.poster_path;
+      this.isFavourite = !this.isFavourite;
+      if (this.isFavourite) {
+        this.favouriteMovie.title = this.$props.movie.title;
+        if (this.isNotValid.poster === false) {
+          this.favouriteMovie.poster =
+            "https://image.tmdb.org/t/p/w500" + this.$props.movie.poster_path;
+        } else {
+          this.favouriteMovie.poster =
+            "https://critics.io/img/movies/poster-placeholder.png";
+        }
+        this.favouriteMovie.popularity = this.$props.movie.popularity;
+        this.favouriteMovie.vote_count = this.$props.movie.vote_count;
+        if (this.isNotValid.overview === false) {
+          this.favouriteMovie.overview = this.$props.movie.overview;
+        } else {
+          this.favouriteMovie.overview = "Brak informacji";
+        }
+        if (this.isNotValid.link === false) {
+          this.favouriteMovie.link =
+            "https://www.themoviedb.org/movie/" + this.$props.movie.id;
+        } else {
+          this.favouriteMovie.link = "Brak linku";
+        }
+        this.favouriteMovie.genres = this.genres(this.movieDet.genres);
+        this.favouriteMovie.countries = this.language(
+          this.movieDet.production_countries
+        );
+        if (!this.MOVIES.includes(this.favouriteMovie)) {
+          this.MOVIES.push(this.favouriteMovie);
+          console.log(this.MOVIES);
+        }
       } else {
-        this.favouriteMovie.poster_path =
-          "https://critics.io/img/movies/poster-placeholder.png";
-      }
-      this.favouriteMovie.popularity = this.$props.movie.popularity;
-      this.favouriteMovie.vote_count = this.$props.movie.vote_count;
-      if (this.isNotValid.overview === false) {
-        this.favouriteMovie.overview = this.$props.movie.overview;
-      } else {
-        this.favouriteMovie.overview = "Brak informacji";
-      }
-      if (this.isNotValid.link === false) {
-        this.favouriteMovie.link =
-          "https://www.themoviedb.org/movie/" + this.$props.movie.id;
-      } else {
-        this.favouriteMovie.link = "Brak linku";
-      }
-      this.favouriteMovie.genres = this.genres(this.movieDet.genres);
-      this.favouriteMovie.countries = this.language(
-        this.movieDet.production_countries
-      );
-      if (!this.MOVIES.includes(this.favouriteMovie)){
-         this.MOVIES.push(this.favouriteMovie);
-         console.log(this.MOVIES)
+        console.log("HEJ");
+        this.removeElement(this.MOVIES, this.favouriteMovie);
+        console.log(this.MOVIES);
       }
       // this.$parent.$emit("favourite-movie", this.favouriteMovie);
     },
+    removeElement(array, elem) {
+      var index = array.indexOf(elem);
+      if (index > -1) {
+        array.splice(index, 1);
+      }
+    },
   },
   beforeMount() {
+    this.MOVIES.forEach((element) => {
+      if (element.title === this.$props.movie.title) {
+        console.log(element.title);
+        this.favouriteMovie = element;
+        this.isFavourite = true;
+      }
+    });
     this.checkIfValid("p", this.$props.movie.poster_path, null);
     this.searchDetails();
   },
