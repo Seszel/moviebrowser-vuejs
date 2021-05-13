@@ -99,6 +99,7 @@ export default {
         link: "",
         genres: "",
         countries: "",
+        id: null,
       },
       isFavourite: false,
     };
@@ -177,6 +178,7 @@ export default {
     addToFavourites() {
       this.isFavourite = !this.isFavourite;
       if (this.isFavourite) {
+        this.favouriteMovie.id = this.$props.movie.id;
         this.favouriteMovie.title = this.$props.movie.title;
         if (this.isNotValid.poster === false) {
           this.favouriteMovie.poster =
@@ -207,7 +209,6 @@ export default {
           console.log(this.MOVIES);
         }
       } else {
-        console.log("HEJ");
         this.removeElement(this.MOVIES, this.favouriteMovie);
         console.log(this.MOVIES);
       }
@@ -222,8 +223,8 @@ export default {
   },
   beforeMount() {
     this.MOVIES.forEach((element) => {
-      if (element.title === this.$props.movie.title) {
-        console.log(element.title);
+      if (element.id === this.$props.movie.id) {
+        console.log(element.id);
         this.favouriteMovie = element;
         this.isFavourite = true;
       }

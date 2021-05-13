@@ -3,7 +3,7 @@
     <ul class="favfilmlist">
       <favourite-movie
         v-for="mov in MOVIES"
-        :key="mov.title"
+        :key="mov.id"
         :mov="mov"
       ></favourite-movie>
     </ul>

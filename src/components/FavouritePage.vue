@@ -1,7 +1,7 @@
 <template>
   <section>
     <h1 style="color: yellow;">FAVOURITE</h1>
-    <show-favourite :key="componentKey"></show-favourite>
+    <show-favourite :key="componentKey" @remove-movie="removed"></show-favourite>
   </section>
 </template>
 
@@ -18,6 +18,11 @@ export default {
     };
   },
   watch: {
+  },
+  methods:{
+    removed(){
+      this.componentKey += 1;
+    }
   },
   activated(){
     this.componentKey += 1;
