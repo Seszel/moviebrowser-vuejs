@@ -9,7 +9,7 @@
       >
     </div>
     <keep-alive>
-      <component :is="selectedTab"></component>
+      <component :is="selectedTab" :logIn="logIn"></component>
     </keep-alive>
   </section>
 </template>

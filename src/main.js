@@ -11,5 +11,6 @@ app.component("base-button", BaseButton);
 app.component("base-dialog", BaseDialog);
 
 app.config.globalProperties.MOVIES = [];
+app.config.globalProperties.LOG = false;
 
 app.mount("#app");

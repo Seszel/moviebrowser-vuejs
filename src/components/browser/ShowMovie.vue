@@ -23,7 +23,7 @@
         </li>
       </ul>
       <base-button @click="toggleDetails">Pokaż szczegóły</base-button>
-      <base-button @click="addToFavourites"
+      <base-button v-if="logIn" @click="addToFavourites"
         >{{ isFavourite ? "Usuń z " : "Dodaj do " }}ulubionych</base-button
       >
     </div>
@@ -72,12 +72,16 @@ import env from "@/env.js";
 import * as data from "@/countries_translate.json";
 
 export default {
-  // emits: ["favourite-movie"],
   props: {
     movie: {
       type: Object,
       required: true,
     },
+    logIn: {
+      type: Boolean,
+      required: false
+    }
+
   },
   data() {
     return {

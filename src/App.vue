@@ -1,7 +1,7 @@
 <template>
   <section>
     <the-header @log-info="setLogInfo"></the-header>
-    <the-views :logIn="logInfo" ></the-views>
+    <the-views :logIn="logInfo" :key="logInfo"></the-views>
   </section>
 </template>
 

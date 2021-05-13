@@ -23,6 +23,7 @@
           v-for="movie in moviesfor"
           :key="movie.id"
           :movie="movie"
+          :logIn="logIn"
         ></show-movie>
       </ul>
       <the-pagination
@@ -47,6 +48,12 @@ export default {
     ThePagination,
     SortMovies,
     SearchMovie,
+  },
+  props :{
+    logIn: {
+      type: Boolean,
+      required: false
+    }
   },
   data() {
     return {

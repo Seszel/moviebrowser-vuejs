@@ -3,10 +3,18 @@
     <header>
       <h2 @click="reloadPage">Movie browser</h2>
       <div class="user">
-        <p v-if="logIn" class="message">Joanna Adamczyk</p>
-        <base-button @click="logInOut"
-          >{{ !logIn ? "Zaloguj" : "Wyloguj" }} mnie</base-button
-        >
+        <p v-if="logIn" class="message">{{nick}}</p>
+        <form @submit.prevent="logInOut">
+          <div v-if="!logIn">
+            <label>Wpisz swoją nazwę uzytkownika</label>
+          </div>
+          <div>
+            <input v-if="!logIn" type="text" placeholder="Twój nick" v-model="nick" />
+            <base-button
+              >{{ !logIn ? "Zaloguj" : "Wyloguj" }} mnie</base-button
+            >
+          </div>
+        </form>
       </div>
     </header>
   </section>
@@ -18,6 +26,7 @@ export default {
   data() {
     return {
       logIn: false,
+      nick: '',
     };
   },
   methods: {
@@ -27,6 +36,8 @@ export default {
     logInOut() {
       this.logIn = !this.logIn;
       this.sendLogInfo();
+      if (this.logIn === false) this.nick = '';
+      if (this.nick === '') this.nick = 'user';
     },
     sendLogInfo() {
       this.$emit("log-info", this.logIn);
@@ -62,7 +73,6 @@ a {
   display: flex;
   align-content: space-around;
   text-align: center;
-
 }
 @media (max-width: 600px) {
   header {
