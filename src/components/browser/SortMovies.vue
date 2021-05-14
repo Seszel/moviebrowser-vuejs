@@ -56,9 +56,11 @@ export default {
 .wrapper select {
   height: 1.5rem;
   font-size: medium;
+  /* text-align: center; */
 }
 .wrapper select option {
   font-size: medium;
+  /* text-align: center; */
 }
 
 @media (max-width: 600px) {

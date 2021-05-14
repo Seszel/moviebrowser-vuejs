@@ -22,10 +22,12 @@
           <p>Liczba głosów: {{ movie.vote_count }}</p>
         </li>
       </ul>
-      <base-button @click="toggleDetails">Pokaż szczegóły</base-button>
-      <base-button v-if="logIn" @click="addToFavourites"
-        >{{ isFavourite ? "Usuń z " : "Dodaj do " }}ulubionych</base-button
-      >
+      <div class="btn-holder">
+        <base-button @click="toggleDetails" :mode="!logIn ? '' : 'details'">Pokaż szczegóły</base-button>
+        <base-button v-if="logIn" @click="addToFavourites" :mode="isFavourite ? 'favourite' : 'notfavourite'"
+          >{{ isFavourite ? "Usuń z " : "Dodaj do " }}ulubionych</base-button
+        >
+      </div>
     </div>
     <base-dialog v-if="modal" :title="movie.title" @close="confirmDetails">
       <template #default>
@@ -79,9 +81,8 @@ export default {
     },
     logIn: {
       type: Boolean,
-      required: false
-    }
-
+      required: false,
+    },
   },
   data() {
     return {
@@ -241,21 +242,39 @@ export default {
 
 <style scoped>
 .movieview {
-  color: black;
-  background-color: rgb(199, 169, 2);
-  padding: 1rem;
+  /* color: rgb(228, 221, 218); */
+  color: white;
+  /* background-color: rgb(199, 169, 2); */
+  background-color: rgb(193, 180, 174, 0.4);
+  transition: background-color 0.3s;
+  border-radius: 6px;
+  padding: 0.75rem;
   margin: 1rem;
   width: 100%;
   max-width: 16rem;
   text-align: center;
+  height: 33rem;
+  justify-content: space-between;
+  flex-direction: column;
+  display: flex;
+}
+.movieview:hover {
+  background-color: rgb(193, 180, 174, 0.7);
+  color: black;
 }
 .movieview li strong {
   width: 12rem;
   display: inline-block;
 }
+.movieview .btn-holder {
+  justify-content: center;
+  align-content: center;
+  display: flex;
+}
 img {
   width: 100%;
   height: auto;
+  border-radius: 6px;
 }
 ul {
   list-style: none;

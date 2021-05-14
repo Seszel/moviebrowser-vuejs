@@ -1,6 +1,6 @@
 <template>
-<section>
-    <search-movie @movie-name="setMovieName"></search-movie>
+  <section>
+    <search-movie class="browser" @movie-name="setMovieName"></search-movie>
     <base-dialog v-if="dialog" title="Brak filmu w bazie" @close="confirmError">
       <template #default>
         Przykro nam, ale nie ma takiego filmu w naszej bazie 😞.<br />
@@ -32,7 +32,7 @@
         :current_page="pageNumber"
       ></the-pagination>
     </section>
-    </section>
+  </section>
 </template>
 
 <script>
@@ -49,11 +49,11 @@ export default {
     SortMovies,
     SearchMovie,
   },
-  props :{
+  props: {
     logIn: {
       type: Boolean,
-      required: false
-    }
+      required: false,
+    },
   },
   data() {
     return {
@@ -78,10 +78,14 @@ export default {
   },
   methods: {
     setMovieName(getname) {
-      this.movieName = getname;
-      this.order = "";
-      this.error = false;
-      this.searchMovies();
+      if (getname === "") {
+        this.dialog = true;
+      } else {
+        this.movieName = getname;
+        this.order = "";
+        this.error = false;
+        this.searchMovies();
+      }
     },
     searchMovies() {
       this.isLoading = true;
@@ -133,13 +137,13 @@ export default {
       this.dialog = false;
       this.error = true;
     },
-    setFav(getfav){
+    setFav(getfav) {
       this.fav = getfav;
       console.log(this.fav);
     },
-    inFavourite(){
-      this
-    }
+    inFavourite() {
+      this;
+    },
   },
 };
 </script>

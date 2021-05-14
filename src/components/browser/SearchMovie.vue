@@ -5,7 +5,7 @@
         <label>Czego szukasz?</label>
       </div>
       <div>
-        <input type="text" placeholder=" Tytuł filmu" v-model="enteredName" />
+        <input type="text" placeholder="Tytuł filmu" v-model="enteredName" />
         <base-button>Pokaż filmy</base-button>
       </div>
     </form>
@@ -41,20 +41,20 @@ form div {
 label {
   color: white;
   font-weight: bold;
-  margin-right: 1rem;
   width: 20rem;
-  display: inline-block;
+  /* display: inline-block; */
   font-size: large;
 }
 form input {
   background-color: white;
   width: 100%;
-  height: 30px;
+  /* height: 30px; */
   font-size: large;
-  color: rgb(124, 23, 23);
-  outline: none;
+  color: black;
+  border: none;
+  padding: 4px;
+  margin: 8px;
+  border-radius: 4px;
 }
-input[type="text"]:focus {
-  border: 3px solid rgb(199, 169, 2);
-}
+
 </style>

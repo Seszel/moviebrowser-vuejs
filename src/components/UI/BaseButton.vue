@@ -13,22 +13,23 @@ export default {
 <style scoped>
 button {
   cursor: pointer;
-  border: 1px solid black;
-  background-color: rgb(199, 169, 2);
+  border: none;
+  background-color: rgb(193, 180, 174, 1);
   transition: background-color 0.3s;
   color: black;
-  padding: 0.15rem 0.3rem;
+  padding: 0.35rem 0.35rem;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.26);
   display: block;
   text-align: center;
   display: inline;
-  font-size: large;
-  margin: 0.5rem;
+  font-size: medium;
+  margin: 4px;
+  border-radius: 4px;
 }
 button:hover {
-  background-color: rgb(124, 23, 23);
+  background-color: rgb(193, 180, 174, 0.4);
   color: white;
-  border: 1px solid white;
+  
 }
 .gray {
   color: white;
@@ -36,5 +37,21 @@ button:hover {
 }
 .gray:hover {
   background-color: rgb(124, 23, 23);
+}
+.notfavourite{
+  padding: 2px;
+  font-size: small;
+}
+.favourite{
+  padding: 2px;
+  font-size: small;
+  background-color: rgb(193, 180, 174, 0.5);
+}
+.details {
+  padding: 2px;
+  text-align: center;
+}
+.bigdetails{
+  
 }
 </style>

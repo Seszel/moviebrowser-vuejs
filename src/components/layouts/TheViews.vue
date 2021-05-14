@@ -1,15 +1,15 @@
 <template>
   <section>
-    <div v-if="logIn" class="message">
+    <!-- <div v-if="logIn" class="message">
       <base-button @click="setSelectedTab('browser-page')"
         >Wyszukiwanie filmów</base-button
       >
       <base-button @click="setSelectedTab('favourite-page')"
         >Moje ulubione filmy</base-button
       >
-    </div>
+    </div> -->
     <keep-alive>
-      <component :is="selectedTab" :logIn="logIn"></component>
+      <component :is="page" :logIn="logIn"></component>
     </keep-alive>
   </section>
 </template>
@@ -25,6 +25,10 @@ export default {
       type: Boolean,
       required: true,
     },
+    page:{
+      type: String,
+      required: false
+    }
   },
   data() {
     return {
@@ -45,8 +49,4 @@ export default {
 </script>
 
 <style scoped>
-.message {
-  color: white;
-  text-align: center;
-}
 </style>
