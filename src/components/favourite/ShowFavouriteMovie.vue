@@ -15,19 +15,26 @@
           <p>Liczba głosów: {{ mov.vote_count }}</p>
         </li>
       </ul>
-      <base-button @click="changeTitle" mode="small">Zmień tytuł</base-button>
-      <div class="btn-holder">
-      <base-button @click="toggleDetails" mode="small">Pokaż szczegóły</base-button>
-      <base-button @click="removeFromFavourites(MOVIES, mov)" mode="small"
-        >Usuń z ulubionych</base-button
-      >
+      <div class="layout">
+        <base-button @click="changeTitle" mode="small">Zmień tytuł</base-button>
+        <div class="btn-holder">
+          <base-button @click="toggleDetails" mode="small"
+            >Pokaż szczegóły</base-button
+          >
+          <base-button @click="removeFromFavourites(MOVIES, mov)" mode="small"
+            >Usuń z ulubionych</base-button
+          >
+        </div>
       </div>
     </div>
     <base-dialog v-if="modal" :title="mov.title" @close="confirmDetails">
       <template #default>
         <ul class="details">
           <li>
-            <a :href="mov.link">Link do IMDB</a>
+            <strong>Opis:</strong><br />
+            <p id="overview">
+              {{ mov.overview }}
+            </p>
           </li>
           <li>
             <strong>Gatunki:</strong><br />
@@ -36,37 +43,40 @@
             </div>
           </li>
           <li>
-            <strong>Opis:</strong><br />
-            <p id="overview">
-              {{ mov.overview }}
-            </p>
-          </li>
-          <li>
             <strong>Kraj produkcji:</strong>
             <div>
               <p>{{ mov.countries }}</p>
             </div>
           </li>
+          <li>
+            <a :href="mov.link">Link do IMDB</a>
+          </li>
         </ul>
       </template>
       <template #actions>
-        <base-button @click="confirmDetails">Ukryj szczegóły</base-button>
+        <base-button @click="confirmDetails" mode="gray"
+          >Ukryj szczegóły</base-button
+        >
       </template>
     </base-dialog>
     <base-dialog v-if="change" title="Zmień tytuł filmu" @close="confirmTitle">
-    <template #default>
-      <form @submit.prevent="changeTitleName">
-        <div>
-          <label>Wpisz nowy tytuł</label>
-        </div>
-        <div>
-          <input type="text" placeholder="Tytuł filmu" v-model="enteredTitle" />
-          <base-button>Zmień</base-button>
-        </div>
-      </form>
+      <template #default>
+        <form @submit.prevent="changeTitleName">
+          <div>
+            <label>Wpisz nowy tytuł</label>
+          </div>
+          <div>
+            <input
+              type="text"
+              placeholder="Tytuł filmu"
+              v-model="enteredTitle"
+            />
+            <base-button mode="gray">Zmień</base-button>
+          </div>
+        </form>
       </template>
       <template #actions>
-        <base-button @click="confirmTitle">Zamknij</base-button>
+        <base-button @click="confirmTitle" mode="gray">Zamknij</base-button>
       </template>
     </base-dialog>
   </section>
@@ -133,7 +143,7 @@ export default {
   width: 100%;
   max-width: 16rem;
   text-align: center;
-  height: 35rem;
+  height: 36rem;
   justify-content: space-between;
   flex-direction: column;
   display: flex;
@@ -151,6 +161,19 @@ export default {
   align-content: center;
   display: flex;
 }
+.movieview .layout {
+  display: grid;
+}
+input {
+  border-radius: 4px;
+  border: none;
+  padding: 4px;
+  margin: 4px;
+  width: 65%;
+}
+label {
+  margin: 4px;
+}
 img {
   width: 100%;
   height: auto;
@@ -159,11 +182,15 @@ img {
 ul {
   list-style: none;
 }
+
 a {
-  color: rgb(124, 23, 23);
+  color: #5e1418;
 }
 .details {
   text-align: left;
+}
+.details li {
+  margin: 8px;
 }
 #overview {
   text-align: justify;

@@ -34,12 +34,11 @@
         <p class="messageblack" v-if="isLoading">Ładowanie informacji...</p>
         <ul v-else-if="detailsAreVisible" class="details">
           <li>
-            <a
-              v-if="!isNotValid.link"
-              :href="'https://www.themoviedb.org/movie/' + movie.id"
-              >Link do IMDB</a
-            >
-            <a v-else>Brak linku</a>
+            <strong>Opis:</strong><br />
+            <p v-if="!isNotValid.overview" id="overview">
+              {{ movie.overview }}
+            </p>
+            <p v-else>Brak informacji</p>
           </li>
           <li>
             <strong>Gatunki:</strong><br />
@@ -48,22 +47,23 @@
             </div>
           </li>
           <li>
-            <strong>Opis:</strong><br />
-            <p v-if="!isNotValid.overview" id="overview">
-              {{ movie.overview }}
-            </p>
-            <p v-else>Brak informacji</p>
-          </li>
-          <li>
             <strong>Kraj produkcji:</strong>
             <div>
               <p>{{ language(movieDet.production_countries) }}</p>
             </div>
           </li>
+          <li>
+            <a
+              v-if="!isNotValid.link"
+              :href="'https://www.themoviedb.org/movie/' + movie.id"
+              >Link do IMDB</a
+            >
+            <a v-else>Brak linku</a>
+          </li>
         </ul>
       </template>
       <template #actions>
-        <base-button @click="confirmDetails">Ukryj szczegóły</base-button>
+        <base-button @click="confirmDetails" mode="gray">Ukryj szczegóły</base-button>
       </template>
     </base-dialog>
   </section>
@@ -211,7 +211,7 @@ export default {
         );
         if (!this.MOVIES.includes(this.favouriteMovie)) {
           this.MOVIES.push(this.favouriteMovie);
-          console.log(this.MOVIES);
+          // console.log(this.MOVIES);
         }
       } else {
         this.removeElement(this.MOVIES, this.favouriteMovie);
@@ -229,7 +229,7 @@ export default {
   beforeMount() {
     this.MOVIES.forEach((element) => {
       if (element.id === this.$props.movie.id) {
-        console.log(element.id);
+        // console.log(element.id);
         this.favouriteMovie = element;
         this.isFavourite = true;
       }
@@ -249,7 +249,7 @@ export default {
   padding: 0.75rem;
   margin: 1rem;
   width: 100%;
-  max-width: 16rem;
+  max-width: 15rem;
   text-align: center;
   height: 33rem;
   justify-content: space-between;
@@ -278,17 +278,16 @@ ul {
   list-style: none;
 }
 a {
-  color: rgb(124, 23, 23);
+  color: #5e1418;
 }
 .details {
   text-align: left;
 }
+.details li {
+  margin: 8px;
+}
 #overview {
   text-align: justify;
-}
-#genres,
-#country {
-  display: inline;
 }
 .messageblack {
   color: black;

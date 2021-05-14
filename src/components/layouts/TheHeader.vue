@@ -1,11 +1,10 @@
 <template>
   <header>
     <h2 @click="reloadPage">Movie browser</h2>
-
     <div class="user">
       <div class="logedin" v-if="logIn">
         <p v-if="logIn">
-          Witaj <strong>{{ nick }}</strong>
+          Witaj <strong>{{ nick }}!</strong>
         </p>
         <ul>
           <li class="dropdown">
@@ -56,6 +55,7 @@ export default {
       this.sendLogInfo();
       if (this.logIn === false) this.nick = "";
       if (this.nick === "") this.nick = "user";
+      this.$emit("which-page", 'browser-page');
     },
     sendLogInfo() {
       this.$emit("log-info", this.logIn);
@@ -162,12 +162,6 @@ li .dropdown {
     flex-wrap: wrap;
     justify-content: space-around;
     text-align: center;
-  }
-  header p {
-    font-size: small;
-  }
-  header p sub {
-    font-size: x-small;
   }
   h2 {
     text-align: center;

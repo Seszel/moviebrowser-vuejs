@@ -4,7 +4,7 @@
     <dialog open>
       <header>
         <slot name="header">
-          <h2>{{ title }}</h2>
+          <h3>{{ title }}</h3>
         </slot>
       </header>
       <section>
@@ -40,10 +40,11 @@ div {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.75);
   z-index: 2;
+  border-radius: 4px;
 }
 dialog {
   position: fixed;
-  top: 20vh;
+  top: 10vh;
   left: 10%;
   width: 80%;
   z-index: 100;
@@ -51,18 +52,21 @@ dialog {
   padding: 0;
   margin: 0;
   overflow: hidden;
+  border-radius: 4px;
+  background-color: rgba(209, 199, 194, 0.8);
 }
 header {
-  background-color: rgb(124, 23, 23);
+  background-color: rgb(94, 20, 24, 0.8);
   color: white;
   width: 100%;
-  padding: 1rem;
+  padding: 0.6rem;
 }
 header h2 {
   margin: 0;
+  color: white;
 }
 section {
-  padding: 1rem;
+  padding: 0.5rem;
 }
 menu {
   padding: 1rem;
@@ -81,6 +85,7 @@ menu {
   dialog {
     left: calc(50% - 7.5rem);
     width: 15rem;
+    overflow-y: auto;
   }
 }
 </style>

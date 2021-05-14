@@ -3,7 +3,7 @@
     <search-movie class="browser" @movie-name="setMovieName"></search-movie>
     <base-dialog v-if="dialog" title="Brak filmu w bazie" @close="confirmError">
       <template #default>
-        Przykro nam, ale nie ma takiego filmu w naszej bazie 😞.<br />
+        Przykro nam, ale nie ma takiego filmu w naszej bazie.<br />
         Upewnij sie, czy nie popełniłeś literówki i spróbuj ponownie!
       </template>
       <template #actions>
@@ -18,7 +18,7 @@
         :total_pages="movies.total_pages"
         :current_page="pageNumber"
       ></the-pagination>
-      <ul class="filmlist">
+      <ul class="filmlist" :key="componentKey">
         <show-movie
           v-for="movie in moviesfor"
           :key="movie.id"
@@ -66,6 +66,7 @@ export default {
       error: false,
       dialog: false,
       fav: Object,
+      componentKey: 0,
     };
   },
   watch: {
@@ -137,13 +138,9 @@ export default {
       this.dialog = false;
       this.error = true;
     },
-    setFav(getfav) {
-      this.fav = getfav;
-      console.log(this.fav);
-    },
-    inFavourite() {
-      this;
-    },
+  },
+  activated() {
+    this.componentKey += 1;
   },
 };
 </script>

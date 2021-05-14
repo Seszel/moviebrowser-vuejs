@@ -1,13 +1,10 @@
 <template>
   <section>
     <h1>Ulubione filmy</h1>
-    <p v-if="empty">
-      Nie masz żadnych ulubionych filmów. <br />Przejdź do sekcji wyszukiwarki i
-      dodaj tu swoje perełki.
-    </p>
     <show-favourite
       :key="componentKey"
       @remove-movie="removed"
+      :empty="empty"
     ></show-favourite>
   </section>
 </template>
@@ -24,32 +21,33 @@ export default {
       empty: true,
     };
   },
-
   methods: {
     removed() {
       this.componentKey += 1;
+      if (this.MOVIES.length > 0) {
+        this.empty = false;
+      } else {
+        this.empty = true;
+      }
     },
   },
   activated() {
     this.componentKey += 1;
-    // console.log(this.empty);
-    // if (!this.MOVIES.length() === 0) {
-    //   this.empty = false;
-    // }
+    if (this.MOVIES.length > 0) {
+      this.empty = false;
+    } else {
+      this.empty = true;
+    }
   },
 };
 </script>
 
 <style scoped>
 h1 {
-  color: rgb(193, 180, 174, 1);
+  color: white;
   text-align: center;
   font-size: xx-large;
   font-weight: bold;
   margin: 2rem;
-}
-p {
-  color: white;
-  text-align: center;
 }
 </style>

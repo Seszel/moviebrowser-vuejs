@@ -32,10 +32,10 @@ button:hover {
 }
 .gray {
   color: white;
-  background-color: rgb(59, 56, 56);
+  background-color: rgb(66, 63, 63);
 }
 .gray:hover {
-  background-color: rgb(124, 23, 23);
+  background-color: rgb(124, 23, 23, 0.8);
 }
 .notfavourite{
   padding: 2px;

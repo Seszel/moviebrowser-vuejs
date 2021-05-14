@@ -56,11 +56,25 @@ export default {
 .wrapper select {
   height: 1.5rem;
   font-size: medium;
+  background-color: rgb(193, 180, 174, 0.4);
+  border-radius: 4px;
+  border: none;
+  transition: background-color 0.3s;
+  color: white;
+}
+.wrapper select:hover {
+  background-color: rgb(193, 180, 174, 0.7);
+  color: black;
 }
 .wrapper select option {
   font-size: medium;
+  /* background-color: white; */
+  color: black;
+  
 }
-
+.wrapper select option:hover {
+  background-color: rgb(193, 180, 174, 0.4);
+}
 @media (max-width: 600px) {
   .wrapper select option {
     font-size: small;
