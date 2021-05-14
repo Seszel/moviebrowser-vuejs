@@ -28,8 +28,7 @@ button {
 }
 button:hover {
   background-color: rgb(193, 180, 174, 0.4);
-  color: white;
-  
+  color: white; 
 }
 .gray {
   color: white;
@@ -51,7 +50,7 @@ button:hover {
   padding: 2px;
   text-align: center;
 }
-.bigdetails{
-  
+.small {
+  font-size: small;
 }
 </style>

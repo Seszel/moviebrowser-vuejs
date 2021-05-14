@@ -1,13 +1,5 @@
 <template>
   <section>
-    <!-- <div v-if="logIn" class="message">
-      <base-button @click="setSelectedTab('browser-page')"
-        >Wyszukiwanie filmów</base-button
-      >
-      <base-button @click="setSelectedTab('favourite-page')"
-        >Moje ulubione filmy</base-button
-      >
-    </div> -->
     <keep-alive>
       <component :is="page" :logIn="logIn"></component>
     </keep-alive>

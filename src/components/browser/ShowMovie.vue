@@ -242,9 +242,7 @@ export default {
 
 <style scoped>
 .movieview {
-  /* color: rgb(228, 221, 218); */
   color: white;
-  /* background-color: rgb(199, 169, 2); */
   background-color: rgb(193, 180, 174, 0.4);
   transition: background-color 0.3s;
   border-radius: 6px;

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="favmovieview">
+    <div class="movieview">
       <ul>
         <li>
           <img :src="mov.poster" />
@@ -15,11 +15,13 @@
           <p>Liczba głosów: {{ mov.vote_count }}</p>
         </li>
       </ul>
-      <base-button @click="changeTitle">Zmień tytuł</base-button>
-      <base-button @click="toggleDetails">Pokaż szczegóły</base-button>
-      <base-button @click="removeFromFavourites(MOVIES, mov)"
+      <base-button @click="changeTitle" mode="small">Zmień tytuł</base-button>
+      <div class="btn-holder">
+      <base-button @click="toggleDetails" mode="small">Pokaż szczegóły</base-button>
+      <base-button @click="removeFromFavourites(MOVIES, mov)" mode="small"
         >Usuń z ulubionych</base-button
       >
+      </div>
     </div>
     <base-dialog v-if="modal" :title="mov.title" @close="confirmDetails">
       <template #default>
@@ -121,22 +123,38 @@ export default {
 </script>
 
 <style scoped>
-.favmovieview {
-  color: black;
-  background-color: rgb(199, 169, 2);
-  padding: 1rem;
+.movieview {
+  color: white;
+  background-color: rgb(193, 180, 174, 0.4);
+  transition: background-color 0.3s;
+  border-radius: 6px;
+  padding: 0.75rem;
   margin: 1rem;
   width: 100%;
   max-width: 16rem;
   text-align: center;
+  height: 35rem;
+  justify-content: space-between;
+  flex-direction: column;
+  display: flex;
+}
+.movieview:hover {
+  background-color: rgb(193, 180, 174, 0.7);
+  color: black;
 }
 .movieview li strong {
   width: 12rem;
   display: inline-block;
 }
+.movieview .btn-holder {
+  justify-content: center;
+  align-content: center;
+  display: flex;
+}
 img {
   width: 100%;
   height: auto;
+  border-radius: 6px;
 }
 ul {
   list-style: none;

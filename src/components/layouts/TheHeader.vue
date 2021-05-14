@@ -4,14 +4,20 @@
 
     <div class="user">
       <div class="logedin" v-if="logIn">
-        <p v-if="logIn">Witaj <strong>{{ nick }}</strong></p>
+        <p v-if="logIn">
+          Witaj <strong>{{ nick }}</strong>
+        </p>
         <ul>
           <li class="dropdown">
             <base-button class="dropbtn">Wybierz stronę</base-button>
             <div class="dropdown-content">
-              <p class="in" @click="whichPage('browser-page')">Wyszukiwarka filmów</p>
-              <p class="in" @click="whichPage('favourite-page')">Ulubione filmy</p>
-              <p class="out" @click="logInOut">Wyloguj się</p>
+              <p @click="whichPage('browser-page')">
+                Wyszukiwarka filmów
+              </p>
+              <p @click="whichPage('favourite-page')">
+                Ulubione filmy
+              </p>
+              <p @click="logInOut">Wyloguj się</p>
             </div>
           </li>
         </ul>
@@ -99,6 +105,7 @@ ul {
   padding: 0;
   overflow: hidden;
   background-color: #5e1418;
+  left: 0;
 }
 
 li {
@@ -112,28 +119,21 @@ li p {
   padding: 8px;
   text-decoration: none;
   border-radius: 4px;
-  
-}
-
-li p:hover,
-.dropdown:hover .dropbtn {
-  background-color: red;
 }
 
 li .dropdown {
   display: inline-block;
-  
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: white;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  border-radius: 4px;
 }
-
 .dropdown-content p {
   color: black;
   padding: 12px 16px;
@@ -142,23 +142,21 @@ li .dropdown {
   text-align: left;
   cursor: pointer;
 }
-
 .dropdown-content p:hover {
-  background-color: #f1f1f1;
+  background-color: rgb(193, 180, 174, 0.4);
+  color: black;
 }
-
 .dropdown:hover .dropdown-content {
   display: block;
+  left: auto;
+  right: 0;
+  margin-right: 10px;
 }
 .logedin {
   display: grid;
   grid-auto-flow: column;
 }
-/* .out {
-  background-color: rgb(193, 180, 174, 1);
-  background-color: #5e1418;
-  color: white;
-} */
+
 @media (max-width: 600px) {
   header {
     flex-wrap: wrap;
