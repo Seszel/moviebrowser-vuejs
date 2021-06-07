@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="project_dark_blue">#22223B</color>
+    <color name="project_beige">#F2E9E4</color>
+    <color name="project_brown">#C9ADA7</color>
+    <color name="project_purple">#9A8C98</color>
+    <color name="project_gray">#4A4E69</color>
+    <color name="floral_white">#fffcf2</color>
+    <color name="pale_silver">#ccc5b9</color>
+    <color name="black_olive">#403d39</color>
+    <color name="eerie_black">#252422</color>
+    <color name="flame">#eb5e28</color>
+</resources>
