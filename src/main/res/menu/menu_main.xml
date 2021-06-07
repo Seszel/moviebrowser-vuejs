@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.menuexample.MainActivity">
+    <group android:checkableBehavior="single" >
+        <item
+            android:id="@+id/sort_az"
+            android:title="Sortuj alphabetically" />
+        <item
+            android:id="@+id/sort_year"
+            android:title="Sort by year of release" />
+        <item
+            android:id="@+id/sort_rank"
+            android:title="Sort by ranking" />
+
+    </group>
+</menu>
