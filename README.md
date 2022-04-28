@@ -1,5 +1,8 @@
 # moviebrowser-vuejs
 
+### DEMO APP
+https://xenodochial-engelbart-2f06c9.netlify.app/
+
 ## Project setup
 ```
 npm install
@@ -22,6 +25,3 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-
-### DEMO APP
-https://xenodochial-engelbart-2f06c9.netlify.app/
