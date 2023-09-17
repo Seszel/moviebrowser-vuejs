@@ -93,7 +93,7 @@ export default {
       const api_key = "api_key=" + env.apikey;
       const language = "&language=en-US&language=pl-PL";
       let url =
-        "https://api.themoviedb.org/4/search/movie?" +
+        "https://api.themoviedb.org/3/search/movie?" +
         api_key +
         language +
         "&page=" +
